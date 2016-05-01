@@ -20,14 +20,29 @@
 
             function drag(ev) {
                 ev.dataTransfer.setData("text", ev.target.id);
+                ev.dataTransfer.effectAllowed = "copy";
+                //ev.dataTransfer.setData("text/html", "<p>Example paragraph</p>");
+                console.log(ev);
             }
 
             function drop(ev) {
+
                 ev.preventDefault();
+               // console.log(ev.dataTransfert);
                 var data = ev.dataTransfer.getData("text");
-                console.log(data);
-                ev.target.appendChild(document.getElementById(data));
+
+                /* If you use DOM manipulation functions, their default behaviour it not to 
+                copy but to alter and move elements. By appending a ".cloneNode(true)", 
+                 you will not move the original element, but create a copy. */
+
+                var nodeCopy = document.getElementById(data).cloneNode(true);
+                nodeCopy.id = nodeCopy.id.replace("s_", "m_");; /* We cannot use the same ID */
+
+                // We want to insrt stuff in the new ul/li
+                var ulElement = ev.target.querySelector("ul");
+                ulElement.appendChild(nodeCopy);
             }
+
         </script>
     </head>
     <body>
@@ -35,8 +50,8 @@
         <input type="text" id="searchBar"></input>
             <ul id="searchList"></ul>
     </div>
-        <div id="main" ondrop="drop(event)" ondragover="allowDrop(event)">
-
+        <div id="main" ondrop="drop(event)" ondragover="allowDrop(event)" >
+        <ul id="userList" ></ul>
         </div>
 
         <script src="https://code.jquery.com/jquery-1.12.0.min.js"></script>

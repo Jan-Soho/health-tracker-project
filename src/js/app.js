@@ -13,7 +13,7 @@ var ListItem = Backbone.Model.extend({
 	}
 });
 
-var ListItems = Backbone.Collection.extend({
+var SideListItems = Backbone.Collection.extend({
 	model: ListItem,
 	initialize: function() {
 		//this.on('loaded', function() {console.log('Handled Backbone event');});
@@ -21,55 +21,65 @@ var ListItems = Backbone.Collection.extend({
 	populate: function(data) {
 		// Empty collection
 		this.reset();
-		// On recupere chaque nom d'aliment
+		// Get the info of the array passed by callnutri ajaxcall, contains all info from items in fields
 		var itemArray = [];
 		_.each(data, function(item) {
-			itemArray.push({id: item.fields.item_id, name: item.fields.item_name, brand: item.fields.brand_name});
-			console.log(item.fields.item_name);
+			itemArray.push({id: item.fields.item_id, name: item.fields.item_name, brand: item.fields.brand_name, cal: item.fields.nf_calories});
+			//console.log(item.fields.item_name);
 		});
 
-		//console.log(itemArray);
+		// We had this created array to the collection, intanciating item
 		this.add(itemArray);
 
+		// When loading finished we trigger an loaded event to signal all items have been adde
+		// Because add event will trigger each time we add one item and not the entire collection
 		this.trigger('loaded');
 		// create an event
 	}
 });
 
-var alimentList = new ListItems({});
+var MainListItems = Backbone.Collection.extend({
+
+});
+
+var alimentList = new SideListItems({});
 
 var SingleListItem = Backbone.View.extend({
 	tagName: "li",
+	events: {
+		"click .add" : "addItem"
+	},
 	initialize: function() {
+
+	},
+	addItem: function() {
+		// we have to had the item to the main view collection
+		// We can trigger an event
 
 	},
 	attributes : function () {
     return {
       draggable : true,
       ondragstart : "drag(event)",
-      id: this.model.get("id")
+      id: "s_" + this.model.get("id")
     };
  	},
 	render: function() {
 		//console.log(this.model);
-		this.$el.html(this.model.get("name") + " " + this.model.get("brand") + " <button>Add<button>");
+		this.$el.html(this.model.get("name") + " " + this.model.get("cal") + " <button>Add</button>");
 		return this;
 	}
 });
 
-var AllListItems = Backbone.View.extend({
+var AllSideListItems = Backbone.View.extend({
 	el: $('#sidebar'),
 	events: {
 		"keypress #searchBar" : "callnutri"
 	},
 	initialize: function() {
-
 		this.$input = this.$('#searchBar');
 		this.$list = this.$('#searchList');
 		this.listenTo(alimentList, 'loaded', this.createList);
-		//console.log(this.$input);
-		//this.listenTo(alimentList, 'add remove', this.addOne);
-		// http://stackoverflow.com/questions/8175054/backbone-js-collections-change-event-isnt-firing
 	},
 	callnutri: function(e) {
 		//console.log(e);
@@ -84,7 +94,8 @@ var AllListItems = Backbone.View.extend({
 			            dataType: "json"
 			        })
 			        .done(function(data) {
-			           //console.log(this.model);
+			           console.log(data);
+			           // Data.hits is an array of returned object, each object is an item
 			           self.model.populate(data.hits);
 			        })
 			        .fail(function(jqXHR, textStatus) {
@@ -97,10 +108,10 @@ var AllListItems = Backbone.View.extend({
 		createList: function() {
 			var self = this;
 			this.$list.html('');
-			console.log(self.model);
+			// console.log(self.model);
 
 			self.model.each(function(item) {
-				console.log(item);
+				//console.log(item);
 				var view = new SingleListItem({ model: item });
 
 				self.$list.append(view.render().$el);
@@ -111,7 +122,7 @@ var AllListItems = Backbone.View.extend({
 
 });
 
-var allitems = new AllListItems({model: alimentList});
+var allitems = new AllSideListItems({model: alimentList});
 // add a listener to the input text search bar that declenche ze viouz
 
 

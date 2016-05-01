@@ -300,4 +300,7 @@ textarea {
     margin-right: 10px;
 }
 
+#userList{
+    display: block;
+}
 
