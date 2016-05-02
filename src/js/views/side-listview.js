@@ -26,25 +26,26 @@ var AllSideListItems = Backbone.View.extend({
 			            dataType: "json"
 			        })
 			        .done(function(data) {
-			           console.log(data);
+			           //console.log(data);
 			           // Data.hits is an array of returned object, each object is an item
 			           self.model.populate(data.hits);
 			        })
 			        .fail(function(jqXHR, textStatus) {
 			            // Error handling
-			            console.log("error");
+			           // console.log("error");
 			        });
 			}
 
 		},
 		createList: function() {
+			//console.log("we create");
 			var self = this;
 			this.$list.html('');
 			// console.log(self.model);
 
 			self.model.each(function(item) {
 				//console.log(item);
-				var view = new SingleListItem({ model: item });
+				var view = new SingleSideListItem({ model: item });
 
 				self.$list.append(view.render().$el);
 				//console.log(item.fields.item_name);

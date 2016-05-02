@@ -1,6 +1,6 @@
 // js/views/side-itemview.js
 
-var SingleListItem = Backbone.View.extend({
+var SingleSideListItem = Backbone.View.extend({
 	tagName: "li",
 	events: {
 		"click .addItem" : "addItem"
