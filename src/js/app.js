@@ -10,3 +10,4 @@ var sideAllItems = new AllSideListItems({model: sideAlimentList});
 
 // View for main div
 var mainAllItems = new AllMainListItems({model: mainAlimentList});
+

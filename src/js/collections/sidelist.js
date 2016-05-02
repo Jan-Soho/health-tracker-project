@@ -17,7 +17,7 @@ var SideListItems = Backbone.Collection.extend({
 
 		// We had this created array to the collection, intanciating item
 		this.add(itemArray);
-
+		//console.log(this);
 		// When loading finished we trigger an loaded event to signal all items have been adde
 		// Because add event will trigger each time we add one item and not the entire collection
 		this.trigger('loaded');

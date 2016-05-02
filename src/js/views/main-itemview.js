@@ -6,7 +6,7 @@ var SingleMainListItem = Backbone.View.extend({
 		
 	},
 	initialize: function() {
-		console.log("single initialize");
+		//console.log("single initialize");
 	},
 	addItem: function() {
 

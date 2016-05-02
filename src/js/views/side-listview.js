@@ -6,7 +6,8 @@ var NUTRI_KEY = "dc52ff1ae24be55bfec98e6c59a86d05";
 var AllSideListItems = Backbone.View.extend({
 	el: $('#sidebar'),
 	events: {
-		"keypress #searchBar" : "callnutri"
+		"keypress #searchBar" : "callnutri",
+		'dragstart li': 'dragStart'
 	},
 	initialize: function() {
 		this.$input = this.$('#searchBar');
@@ -51,6 +52,9 @@ var AllSideListItems = Backbone.View.extend({
 				//console.log(item.fields.item_name);
 			}, this);
 
+		},
+		dragStart: function(e) {
+			console.log(e);
 		}
 
 });
