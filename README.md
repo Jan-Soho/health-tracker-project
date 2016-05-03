@@ -1,4 +1,4 @@
-P5-1: Neighborhood Map Project
+Health-tracker Backbone MVC project
 ==============================
 For finding cool places in my neighborhood !
 

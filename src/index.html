@@ -92,39 +92,8 @@
                 ev.preventDefault();
             }
 
-            function drag(ev) {
-                ev.dataTransfer.setData("text", ev.target.id);
-                ev.dataTransfer.effectAllowed = "copy";
-                //ev.dataTransfer.setData("text/html", "<p>Example paragraph</p>");
-                //console.log(ev);
-            }
-
             function drop(ev) {
-
                 ev.preventDefault();
-               // console.log(ev.dataTransfert);
-                // var data = ev.dataTransfer.getData("text");
-
-                // /* If you use DOM manipulation functions, their default behaviour it not to 
-                // copy but to alter and move elements. By appending a ".cloneNode(true)", 
-                //  you will not move the original element, but create a copy. */
-
-                // var nodeCopy = document.getElementById(data).cloneNode(true);
-
-                // var a = _.extend({}, Backbone.Events);
-
-                // nodeCopy.id = nodeCopy.id.replace("s_", "m_");;  We cannot use the same ID 
-                // // Do some modification to make not look like the list view (draggable, btn..)
-                // nodeCopy.removeAttribute("ondragstart");
-                // nodeCopy.removeAttribute("draggable");
-                // // delete button node
-                // var btnNode = nodeCopy.querySelector('.addItem');
-                // nodeCopy.removeChild(btnNode);
-                // // We want to insrt stuff in the new ul/li
-                // var ulElement = ev.target.querySelector("ul");
-                // ulElement.appendChild(nodeCopy);
-
-                // @TODO : trim white space at the end
             }
 
         </script>

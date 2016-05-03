@@ -10,11 +10,9 @@ var SingleSideListItem = Backbone.View.extend({
 
 	},
 	addItem: function() {
-		//console.log("added");
 		// we have to had the item to the main view collection
 		// We can trigger an event
 		mainAlimentList.add(this.model);
-		//console.log(mainAlimentList.toJSON());
 	},
 	attributes : function () {
     return {
@@ -24,11 +22,10 @@ var SingleSideListItem = Backbone.View.extend({
     };
  	},
  	dragStart: function(ev) {
- 		//console.log("dragstart",ev);
- 		this.model.trigger("yo", this.model);
+ 		// Trigger the drag event for each li, passing the model that had been chosen
+ 		this.model.trigger("drag", this.model);
  	},
 	render: function() {
-		//console.log(this.model);
 		this.$el.html(this.model.get("name") + " / " + this.model.get("cal") + " cal <button class='addItem'>Add</button>");
 		return this;
 	}
