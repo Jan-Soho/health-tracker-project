@@ -13,14 +13,14 @@ var AllSideListItems = Backbone.View.extend({
 		this.$input = this.$('#searchBar');
 		this.$list = this.$('#searchList');
 		this.listenTo(sideAlimentList, 'loaded', this.createList);
-		this.callnutri();
+		//this.callnutri();
 	},
 	callnutri: function(e) {
 		//console.log(e);
-			//if (e.keyCode === 13) {
+			if (e.keyCode === 13) {
 				var self = this;
-				//var text = $("#searchBar").val();
-				var text = "cheese";
+				var text = $("#searchBar").val();
+				//var text = "cheese";
 				//console.log(text);
 				var url = "https://api.nutritionix.com/v1_1/search/" + text + "?fields=item_name%2Citem_id%2Cbrand_name%2Cnf_calories%2Cnf_total_fat&appId=" + NUTRI_ID + "&appKey=" + NUTRI_KEY;
 
@@ -37,7 +37,7 @@ var AllSideListItems = Backbone.View.extend({
 			            // Error handling
 			           // console.log("error");
 			        });
-			//}
+			}
 
 		},
 		createList: function() {

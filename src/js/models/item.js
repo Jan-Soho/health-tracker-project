@@ -2,7 +2,12 @@
 
 var ListItem = Backbone.Model.extend({
 	defaults : {
-		name: ""
+		quantity: 1
 	},
-	urlRoot : "fakeUrl"
+	urlRoot : "https://intense-heat-2914.firebaseio.com",
+	initialize: function() {
+		this.on("change:quantity", function(e) {
+			mainAllItems.getCalories();
+		})
+	}
 });

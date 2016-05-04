@@ -4,7 +4,7 @@ var SingleSideListItem = Backbone.View.extend({
 	tagName: "li",
 	events: {
 		"click .addItem" : "addItem",
-		'dragstart': 'dragStart',
+		'dragstart': 'dragStart'
 	},
 	initialize: function() {
 
