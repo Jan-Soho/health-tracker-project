@@ -3,9 +3,10 @@ var AllMainListItems = Backbone.View.extend({
 	el: $('#main'),
 	events: {
 		"drop": "dropEvent",
-		"click .saveList": "saveList"
+		"click .saveList": "saveList",
 	},
 	initialize: function() {
+		this.$header = $('#titleContent');
 		this.$footerL = $('#footerL');
 		this.$footerR = $('#footerR');
 		this.$footerR.html('<button class="saveList">Save</button>');
@@ -42,7 +43,9 @@ var AllMainListItems = Backbone.View.extend({
 		//console.log(this.totalCalories);
 	},
 	saveList: function() {
-		var newChildRef = listRef.push({title: "A list", date: Date()});
+		// @ protection on validation escape html + validation if null
+		var title = this.$header.val();
+		var newChildRef = listRef.push({title: title, date: Date()});
 		
 		var postID = newChildRef.key();
 
@@ -55,6 +58,8 @@ var AllMainListItems = Backbone.View.extend({
 				cal: item.get("cal")
 			});
 		});
+
+		this.model.reset();
 		
 	},
 	render:function() {
